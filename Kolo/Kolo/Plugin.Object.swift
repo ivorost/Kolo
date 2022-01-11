@@ -7,18 +7,57 @@
 
 import Foundation
 
-class Plugin {
-    private let url: URL
-    
-    init(_ url: URL) throws {
-        self.url = url
+
+fileprivate extension String {
+    static let manifestFileName = "manifest.json"
+}
+
+
+fileprivate struct PluginManifest {
+    let htmlPath: String
+}
+
+extension PluginManifest : Decodable {
+    private enum RootCodingKeys: String, CodingKey {
+        case browser_action
     }
+
+    private enum BrowserActionCodingKeys: String, CodingKey {
+        case default_popup
+    }
+
+    public init(from decoder: Decoder) throws {
+        let root = try decoder.container(keyedBy: RootCodingKeys.self)
+        let browserAction = try root.nestedContainer(keyedBy: BrowserActionCodingKeys.self,
+                                                     forKey: .browser_action)
+        self.htmlPath = try browserAction.decode(String.self, forKey: .default_popup)
+    }
+
 }
 
 
 extension Plugin {
-    var htmlURL: URL {
-        return url.appendingPathComponent("main.html")
+    enum Error : Swift.Error {
+        case badHtmlPath
+    }
+}
+
+
+class Plugin {
+    let url: URL
+    let htmlURL: URL
+    
+    init(_ url: URL) throws {
+        let manifestURL = url.appendingPathComponent(.manifestFileName)
+        let manifest = try JSONDecoder().decode(PluginManifest.self, from: try Data(contentsOf: manifestURL))
+        
+        self.url = url
+        
+        guard let htmlURL = URL(string: manifest.htmlPath, relativeTo: url) else {
+            throw Error.badHtmlPath
+        }
+        
+        self.htmlURL = htmlURL
     }
 }
 
@@ -32,24 +71,11 @@ extension Plugin {
         }
         
         try FileManager.default.unzipItem(at: src, to: url)
-        
-        let pluginHtmlOldURL = url.appendingPathComponent("popup/panel.html")
-        let pluginHtmlNewURL = url.appendingPathComponent("main.html")
-
-        if FileManager.default.fileExists(atPath: pluginHtmlOldURL.path) {
-            try? FileManager.default.moveItem(at: pluginHtmlOldURL, to: pluginHtmlNewURL)
-        }
-        
-        var contents = try String(contentsOf: pluginHtmlNewURL)
-        
-        contents = contents.replacingOccurrences(of: "src=\"/", with: "src=\"./")
-        contents = contents.replacingOccurrences(of: "href=\"/", with: "href=\"./")
-        try contents.write(toFile: pluginHtmlNewURL.path, atomically: true, encoding: .utf8)
-        
+                
         return try Plugin(url)
     }
     
-    static func download(src: URL, callback: @escaping (Plugin?, Error?) -> Void) {
+    static func download(src: URL, callback: @escaping (Plugin?, Swift.Error?) -> Void) {
         URLSession.shared.downloadTask(with: src) { temporaryURL, response, error in
             guard let temporaryURL = temporaryURL, error == nil else {
                 debugPrint("Error while downloading document from url=\(src.absoluteString): \(error.debugDescription)")

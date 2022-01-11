@@ -20,13 +20,17 @@
 		823A63EA2775AF3900443E92 /* Utils.String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823A63E92775AF3900443E92 /* Utils.String.swift */; };
 		823A63EC2775C8C900443E92 /* Utils.URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823A63EB2775C8C900443E92 /* Utils.URL.swift */; };
 		823A63EF2775CD4300443E92 /* ZIPFoundation.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 823A63EE2775CD4300443E92 /* ZIPFoundation.xcframework */; };
-		823A63F12775CD5300443E92 /* ZIPFoundation.xcframework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 823A63EE2775CD4300443E92 /* ZIPFoundation.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		823A63F12775CD5300443E92 /* ZIPFoundation.xcframework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 823A63EE2775CD4300443E92 /* ZIPFoundation.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		823A63F32776057500443E92 /* Plugin.Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823A63F22776057500443E92 /* Plugin.Object.swift */; };
 		824D25EC2774C1FC0065BA31 /* App.Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824D25EB2774C1FC0065BA31 /* App.Delegate.swift */; };
 		824D25EE2774C1FC0065BA31 /* App.WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824D25ED2774C1FC0065BA31 /* App.WebView.swift */; };
 		824D25F12774C1FC0065BA31 /* Kolo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 824D25EF2774C1FC0065BA31 /* Kolo.xcdatamodeld */; };
 		824D25F32774C1FE0065BA31 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 824D25F22774C1FE0065BA31 /* Assets.xcassets */; };
 		824D25F62774C1FE0065BA31 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 824D25F42774C1FE0065BA31 /* Main.storyboard */; };
+		825A2CDA278DA87B00401F31 /* AppKit.TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825A2CD9278DA87B00401F31 /* AppKit.TextField.swift */; };
+		825A2CDF278DD54600401F31 /* GCDWebServers.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 825A2CDE278DD54600401F31 /* GCDWebServers.xcframework */; };
+		825A2CE0278DD54F00401F31 /* GCDWebServers.xcframework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 825A2CDE278DD54600401F31 /* GCDWebServers.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		825A2CE2278DE2AE00401F31 /* Plugin.Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825A2CE1278DE2AE00401F31 /* Plugin.Server.swift */; };
 		8276438327837759003350A3 /* AppKit.CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8276438227837758003350A3 /* AppKit.CollectionView.swift */; };
 		827643852783892A003350A3 /* App.View.Segue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8276438427838929003350A3 /* App.View.Segue.swift */; };
 		82832A9A277DFA4800EE4C8C /* Tabs.ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82832A99277DFA4800EE4C8C /* Tabs.ViewModel.swift */; };
@@ -39,14 +43,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		823A63F02775CD4F00443E92 /* CopyFiles */ = {
+		823A63F02775CD4F00443E92 /* Copy Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				823A63F12775CD5300443E92 /* ZIPFoundation.xcframework in CopyFiles */,
+				823A63F12775CD5300443E92 /* ZIPFoundation.xcframework in Copy Frameworks */,
+				825A2CE0278DD54F00401F31 /* GCDWebServers.xcframework in Copy Frameworks */,
 			);
+			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -73,6 +79,9 @@
 		824D25F22774C1FE0065BA31 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		824D25F52774C1FE0065BA31 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		824D25F72774C1FE0065BA31 /* Kolo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Kolo.entitlements; sourceTree = "<group>"; };
+		825A2CD9278DA87B00401F31 /* AppKit.TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppKit.TextField.swift; sourceTree = "<group>"; };
+		825A2CDE278DD54600401F31 /* GCDWebServers.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GCDWebServers.xcframework; path = ThirdParty/Carthage/Build/GCDWebServers.xcframework; sourceTree = "<group>"; };
+		825A2CE1278DE2AE00401F31 /* Plugin.Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plugin.Server.swift; sourceTree = "<group>"; };
 		8276438227837758003350A3 /* AppKit.CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppKit.CollectionView.swift; sourceTree = "<group>"; };
 		8276438427838929003350A3 /* App.View.Segue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.View.Segue.swift; sourceTree = "<group>"; };
 		82832A99277DFA4800EE4C8C /* Tabs.ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.ViewModel.swift; sourceTree = "<group>"; };
@@ -89,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				825A2CDF278DD54600401F31 /* GCDWebServers.xcframework in Frameworks */,
 				823A63EF2775CD4300443E92 /* ZIPFoundation.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -113,6 +123,7 @@
 				820470C4277AF93600DBF579 /* WebKit.ScriptMessage.swift */,
 				8295FEA2277B0BB600228DE7 /* Utils.WebViewController.swift */,
 				8276438227837758003350A3 /* AppKit.CollectionView.swift */,
+				825A2CD9278DA87B00401F31 /* AppKit.TextField.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -121,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				823A63EE2775CD4300443E92 /* ZIPFoundation.xcframework */,
+				825A2CDE278DD54600401F31 /* GCDWebServers.xcframework */,
 			);
 			name = ThirdParty;
 			sourceTree = "<group>";
@@ -157,6 +169,7 @@
 				824D25ED2774C1FC0065BA31 /* App.WebView.swift */,
 				8290F6EB2779E849001907D1 /* Plugin.WebView.swift */,
 				823A63F22776057500443E92 /* Plugin.Object.swift */,
+				825A2CE1278DE2AE00401F31 /* Plugin.Server.swift */,
 				8295FEAA277B47D800228DE7 /* Data.History.swift */,
 				821DCC30277C866900C6BDE4 /* Tabs.Controller.swift */,
 				82832A99277DFA4800EE4C8C /* Tabs.ViewModel.swift */,
@@ -182,7 +195,7 @@
 				824D25E42774C1FC0065BA31 /* Sources */,
 				824D25E52774C1FC0065BA31 /* Frameworks */,
 				824D25E62774C1FC0065BA31 /* Resources */,
-				823A63F02775CD4F00443E92 /* CopyFiles */,
+				823A63F02775CD4F00443E92 /* Copy Frameworks */,
 			);
 			buildRules = (
 			);
@@ -244,6 +257,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				825A2CDA278DA87B00401F31 /* AppKit.TextField.swift in Sources */,
 				824D25EE2774C1FC0065BA31 /* App.WebView.swift in Sources */,
 				8276438327837759003350A3 /* AppKit.CollectionView.swift in Sources */,
 				821DCC3E277DE44300C6BDE4 /* Tabs.Item.swift in Sources */,
@@ -255,6 +269,7 @@
 				8290F6EC2779E849001907D1 /* Plugin.WebView.swift in Sources */,
 				8295FEAB277B47D800228DE7 /* Data.History.swift in Sources */,
 				820470BE277AE00400DBF579 /* Utils.Settings.swift in Sources */,
+				825A2CE2278DE2AE00401F31 /* Plugin.Server.swift in Sources */,
 				821DCC33277C867700C6BDE4 /* Tabs.Layout.swift in Sources */,
 				82840B3A2784236D003776FB /* App.DB.swift in Sources */,
 				827643852783892A003350A3 /* App.View.Segue.swift in Sources */,

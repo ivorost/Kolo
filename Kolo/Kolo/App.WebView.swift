@@ -64,7 +64,7 @@ extension MainWebViewController {
 }
 
 
-extension MainWebViewController : WKNavigationDelegate {
+extension MainWebViewController /* WKNavigationDelegate */ {
     func webView(_ webView: WKWebView,
                  decidePolicyFor navigationAction: WKNavigationAction,
                  decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
@@ -83,14 +83,6 @@ extension MainWebViewController : WKNavigationDelegate {
             Settings.shared.lastVisitedURL = url
             urlNavigated?(url)
         }
-    }
-    
-    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        print("\(error)")
-    }
-    
-    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-        print("\(error)")
     }
 }
 

@@ -12,7 +12,6 @@ fileprivate extension CGFloat {
     static let space: CGFloat = 12
     static let minWidth: CGFloat = 50
     static let maxWidth: CGFloat = 150
-    static let selectedDefaultWidth: CGFloat = 400
     static let selectedMinWidth: CGFloat = 250
     static let selectedMaxWidth: CGFloat = 600
     static let paddingTop: CGFloat = 1
@@ -29,12 +28,21 @@ class TabsLayout: NSCollectionViewLayout {
     
     override func prepare() {
         guard let collectionView = collectionView, let scrollView = collectionView.enclosingScrollView else { return }
+
         let count = collectionView.numberOfItems(inSection: 0)
+        guard count != 0 else {
+            contentSize = CGSize(width: 0, height: scrollView.frame.height)
+            return
+        }
+
         let spacesWidth = CGFloat(count - 1) * .space
-        let selectionWidth = CGFloat.selectedDefaultWidth
-        
-        let calculatedWidth =
-        ceil(scrollView.frame.width - selectionWidth - spacesWidth - .paddingRight - .paddingLeft) / CGFloat(count - 1)
+        let availableWidth = scrollView.frame.width
+        - CGFloat(count - 1) * (.maxWidth + .space)
+        - .paddingRight
+        - .paddingLeft
+        let selectionWidth = min(max(availableWidth, .selectedMinWidth), .selectedMaxWidth)
+        let freeWidth = ceil(scrollView.frame.width - selectionWidth - spacesWidth - .paddingRight - .paddingLeft)
+        let calculatedWidth = count > 1 ? freeWidth / CGFloat(count - 1) : 0
         
         let width = max(min(calculatedWidth, .maxWidth), .minWidth)
         let cellSize = CGSize(width: width, height: scrollView.frame.height - .paddingBottom - .paddingTop)

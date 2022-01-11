@@ -15,17 +15,22 @@ fileprivate extension NSStoryboardSegue.Identifier {
 
 class WindowContentController : NSViewController {
     var webContentDidShow: ((MainWebViewController) -> Void)?
-    var tabsController: TabsController?
     private(set) var tabs = [TabViewModel]()
     @IBOutlet private(set) var webContainer: NSView!
+
+    var tabsController: TabsController? {
+        didSet {
+            tabsController?.close = close(tab:)
+        }
+    }
 }
 
 
 extension WindowContentController {
     
     var currentTab: TabViewModel? {
-        guard let tabsController = tabsController else { return nil }
-        return tabs[tabsController.tabIndex]
+        guard let tabIndex = tabsController?.tabIndex else { return nil }
+        return tabs[tabIndex]
     }
 
     var webController: MainWebViewController? {
@@ -37,11 +42,11 @@ extension WindowContentController {
     }
     
     func load(url: URL) {
-        guard let tabsController = tabsController else { assertionFailure(); return }
-        let tab = tabs[tabsController.tabIndex]
+        guard let tabIndex = tabsController?.tabIndex else { assertionFailure(); return }
+        let tab = tabs[tabIndex]
         
         tab.load(url: url)
-        tabsController.tabURL = tab.url
+        tabsController?.tabURL = tab.url
     }
     
     func load(urlString: String) -> Bool {
@@ -73,7 +78,25 @@ extension WindowContentController {
             self.performSegue(withIdentifier: .showWebController, sender: self)
         }
     }
+        
+    @discardableResult func appendTab() -> TabViewModel {
+        hideVisibleContent()
+        let result = _appendTab()
+        
+        self.performSegue(withIdentifier: .showWebController, sender: self)
+        
+        return result
+    }
     
+    func closeTab() {
+        if let tabIndex = tabsController?.tabIndex {
+            close(tab: tabIndex)
+        }
+    }
+}
+
+
+extension WindowContentController {
     private func hide(controller: MainWebViewController) {
         let superview = controller.view.superview
 
@@ -86,17 +109,19 @@ extension WindowContentController {
         guard let controller = visibleContent else { return }
         hide(controller: controller)
     }
-    
-    @discardableResult func appendTab() -> TabViewModel {
+
+    private func hideContent(for tab: Int) {
+        guard tabsController?.tabIndex == tab else { return }
         hideVisibleContent()
-        let result = _appendTab()
-        
-        self.performSegue(withIdentifier: .showWebController, sender: self)
-        
-        return result
     }
     
-    @discardableResult private func _appendTab() -> TabViewModel {
+    private func close(tab index: Int) {
+        hideContent(for: index)
+        tabs.remove(at: index)
+        tabsController?.remove(tab: index)
+    }
+    
+    private func _appendTab() -> TabViewModel {
         guard let tabsController = tabsController else { assertionFailure(); return TabViewModel() }
         let result = TabViewModel()
         

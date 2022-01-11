@@ -15,10 +15,11 @@ fileprivate extension String {
 
 class TabsItem : NSCollectionViewItem {
     var navigate: ((String) -> Void)?
+    var close: ((TabsItem) -> Void)?
 
     @IBOutlet private var box: NSBox!
     @IBOutlet private var label: NSTextField!
-    @IBOutlet private var input: NSTextField!
+    @IBOutlet private(set) var input: NSTextField!
 
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -54,5 +55,9 @@ class TabsItem : NSCollectionViewItem {
     
     @IBAction @objc func addressBarAction(_ sender: NSTextField) {
         navigate?(sender.stringValue)
+    }
+
+    @IBAction @objc func closeAction(_ sender: NSButton) {
+        close?(self)
     }
 }

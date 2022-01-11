@@ -87,7 +87,11 @@ class PluginWebViewController : WebViewController {
 extension PluginWebViewController {
     func load(_ plugin: Plugin) {
         _ = view
-        webView.loadFileURL(plugin.htmlURL, allowingReadAccessTo: plugin.htmlURL.deletingLastPathComponent())
+        
+        PluginServer.shared.startAsync(plugin: plugin) { url in
+            self.webView.load(URLRequest(url: url.appendingPathComponent(plugin.htmlURL.relativePath),
+                                         cachePolicy: .reloadIgnoringLocalAndRemoteCacheData))
+        }
     }
 }
 

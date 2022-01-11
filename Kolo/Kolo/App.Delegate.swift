@@ -78,8 +78,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 
 extension AppDelegate {
+    private var windowController: WindowController? {
+        NSApp.mainWindow?.windowController as? WindowController
+    }
+    
     @IBAction func plusButtonAction(_ sender: Any) {
-        guard let windowController = NSApp.mainWindow?.windowController as? WindowController else { return }
-        windowController.plusButtonAction(sender)
+        windowController?.plusButtonAction(sender)
+    }
+    
+    @IBAction func closeTabAction(_ sender: Any) {
+        windowController?.closeAction(sender)
     }
 }

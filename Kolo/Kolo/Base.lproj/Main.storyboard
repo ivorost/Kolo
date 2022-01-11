@@ -91,9 +91,9 @@
                                             </menu>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="m54-Is-iLE"/>
-                                        <menuItem title="Close" keyEquivalent="w" id="DVo-aG-piG">
+                                        <menuItem title="Close Tab" keyEquivalent="w" id="JnW-5k-QfB">
                                             <connections>
-                                                <action selector="performClose:" target="Ady-hI-5gd" id="HmO-Ls-i7Q"/>
+                                                <action selector="closeTabAction:" target="Voe-Tx-rLC" id="Bhr-os-iYS"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Save…" keyEquivalent="s" id="pxx-59-PXV">
@@ -869,6 +869,10 @@
                                                 <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
                                                 <wkPreferences key="preferences"/>
                                             </wkWebViewConfiguration>
+                                            <connections>
+                                                <outlet property="UIDelegate" destination="Rxs-fC-Kr8" id="KNn-Id-SRR"/>
+                                                <outlet property="navigationDelegate" destination="Rxs-fC-Kr8" id="PD1-ny-dSZ"/>
+                                            </connections>
                                         </wkWebView>
                                     </subviews>
                                     <constraints>
@@ -952,8 +956,8 @@
     </scenes>
     <resources>
         <image name="icons8-back" width="16" height="16"/>
-        <image name="icons8-plugin" width="16" height="16"/>
-        <image name="icons8-plus" width="16" height="16"/>
+        <image name="icons8-plugin" width="12" height="12"/>
+        <image name="icons8-plus" width="12" height="12"/>
         <namedColor name="Kolo Plugin background">
             <color red="1" green="1" blue="1" alpha="0.94599997997283936" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

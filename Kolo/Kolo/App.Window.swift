@@ -131,6 +131,10 @@ extension WindowController {
         viewController.appendTab()
     }
 
+    @IBAction func closeAction(_ sender: Any) {
+        viewController.closeTab()
+    }
+
     @IBAction func backButtonAction(_ sender: Any) {
         if let url = viewController.webController?.webView.backForwardList.backItem?.url {
             tabsController?.tabURL = url

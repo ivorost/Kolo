@@ -23,30 +23,45 @@ class TabsController : NSViewController {
     private var tabs = [URL?]()
     var tabSelected: ((Int) -> Void)?
     var navigate: ((String) -> Void)?
+    var close: ((Int) -> Void)?
 }
 
 
 extension TabsController {
-    var tabIndex: Int {
+    var tabIndex: Int? {
         get {
-            return collectionView.selectionIndexPaths.first?.item ?? 0
+            return collectionView.selectionIndexPaths.first?.item
         }
         set {
-            let indexPath = IndexPath(item: newValue, section: 0)
+            if let newValue = newValue {
+                let indexPath = IndexPath(item: newValue, section: 0)
 
-            collectionView.selectionIndexPaths = [ indexPath ]
-            collectionView.collectionViewLayout?.invalidateLayout()
+                collectionView.selectionIndexPaths = [ indexPath ]
+                collectionView.collectionViewLayout?.invalidateLayout()
+            }
+            else {
+                collectionView.selectionIndexPaths = []
+            }
         }
     }
     
     var tabURL: URL? {
         get {
+            guard let tabIndex = tabIndex else { return nil }
             return tabs[tabIndex]
         }
         set {
-            tabs[tabIndex] = newValue
-            (collectionView.item(at: tabIndex) as? TabsItem)?.url = newValue
+            if let tabIndex = tabIndex {
+                tabs[tabIndex] = newValue
+            }
+            
+            tabItem?.url = newValue
         }
+    }
+    
+    private var tabItem: TabsItem? {
+        guard let tabIndex = tabIndex else { return nil }
+        return collectionView.item(at: tabIndex) as? TabsItem
     }
     
     private var collectionViewLayout: TabsLayout {
@@ -80,8 +95,57 @@ extension TabsController {
         return tabs.count - 1
     }
     
+    func remove(tab index: Int) {
+        guard let collectionView = tabs.count == 0 ? collectionView : collectionView.animator() else { return }
+        let selectedIndex = tabIndex
+        var makeFirstResponder = false
+
+        let completionHandler = {
+            if makeFirstResponder {
+                self.view.window?.makeFirstResponder(self.tabItem?.input)
+            }
+        }
+        
+        if view.window?.firstResponder == tabItem?.input.currentEditor() {
+            view.window?.makeFirstResponder(nil)
+            makeFirstResponder = true
+        }
+        
+        NSAnimationContext.runAnimationGroup({ context in
+
+            collectionView.performBatchUpdates {
+                tabs.remove(at: index)
+                collectionView.deleteItems(at: [ IndexPath(item: index, section: 0) ])
+            }
+
+            if selectedIndex == index {
+                collectionView.performBatchUpdates {
+                    var nextIndex = index
+                    
+                    if nextIndex >= tabs.count {
+                        nextIndex = index - 1
+                    }
+                    
+                    if nextIndex >= 0 {
+                        collectionView.selectionIndexPaths = [ IndexPath(item: nextIndex, section: 0) ]
+                        tabSelected?(nextIndex)
+                    }
+                }
+            }
+
+        }, completionHandler: completionHandler)
+    }
+}
+
+
+extension TabsController {
     private func navigate(urlString: String) {
         navigate?(urlString)
+    }
+    
+    private func close(item: TabsItem) {
+        guard let indexPath = item.collectionView?.indexPath(for: item) else { return }
+        close?(indexPath.item)
     }
 }
 
@@ -129,6 +193,7 @@ extension TabsController : NSCollectionViewDataSource {
         }
         
         result.url = tabs[indexPath.item]
+        result.close = close(item:)
         result.navigate = navigate(urlString:)
         
         return result

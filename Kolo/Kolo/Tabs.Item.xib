@@ -29,39 +29,59 @@
                 <subviews>
                     <textField hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9KE-cG-heg">
                         <rect key="frame" x="0.0" y="0.0" width="100" height="30"/>
-                        <textFieldCell key="cell" controlSize="large" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" alignment="center" placeholderString="Enter website name" usesSingleLineMode="YES" bezelStyle="round" id="ZbC-Ms-wbq">
+                        <textFieldCell key="cell" controlSize="large" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" alignment="center" placeholderString="Enter website name" usesSingleLineMode="YES" bezelStyle="round" id="ZbC-Ms-wbq" customClass="PaddedTextFieldCell" customModule="Orion" customModuleProvider="target">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="Kolo Window background"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="paddingLeft">
+                                    <real key="value" value="15"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="paddingTop">
+                                    <real key="value" value="-1"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
                         </textFieldCell>
                         <connections>
                             <action selector="addressBarAction:" target="c22-O7-iKe" id="pTN-af-GmE"/>
                         </connections>
                     </textField>
                     <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Th3-vO-jPx">
-                        <rect key="frame" x="13" y="7" width="84" height="16"/>
+                        <rect key="frame" x="23" y="7" width="74" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="charWrapping" alignment="left" title="Label" usesSingleLineMode="YES" id="stP-v3-jan">
                             <font key="font" usesAppearanceFont="YES"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JNF-Z7-ebA">
+                        <rect key="frame" x="5" y="9" width="12" height="12"/>
+                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="icons8-close" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="BPK-mS-5bx">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="closeAction:" target="c22-O7-iKe" id="ipY-18-eOS"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Th3-vO-jPx" firstAttribute="centerY" secondItem="GK0-6o-p15" secondAttribute="centerY" id="Cvb-zV-Ntp"/>
                     <constraint firstItem="9KE-cG-heg" firstAttribute="leading" secondItem="GK0-6o-p15" secondAttribute="leading" id="Fd4-IF-lFH"/>
                     <constraint firstAttribute="bottom" secondItem="9KE-cG-heg" secondAttribute="bottom" id="MVZ-ai-OEt"/>
+                    <constraint firstItem="JNF-Z7-ebA" firstAttribute="centerY" secondItem="Th3-vO-jPx" secondAttribute="centerY" id="ShX-72-TMz"/>
                     <constraint firstItem="9KE-cG-heg" firstAttribute="top" secondItem="GK0-6o-p15" secondAttribute="top" id="aov-qQ-MWN"/>
                     <constraint firstAttribute="trailing" secondItem="9KE-cG-heg" secondAttribute="trailing" id="fSb-ls-01h"/>
-                    <constraint firstItem="Th3-vO-jPx" firstAttribute="leading" secondItem="GK0-6o-p15" secondAttribute="leading" constant="15" id="mrj-oy-8Zf"/>
+                    <constraint firstItem="Th3-vO-jPx" firstAttribute="leading" secondItem="GK0-6o-p15" secondAttribute="leading" constant="25" id="mrj-oy-8Zf"/>
                     <constraint firstAttribute="trailing" secondItem="Th3-vO-jPx" secondAttribute="trailing" constant="5" id="omx-30-KKJ"/>
+                    <constraint firstItem="JNF-Z7-ebA" firstAttribute="leading" secondItem="GK0-6o-p15" secondAttribute="leading" constant="5" id="rDW-2j-VHo"/>
                 </constraints>
             </view>
-            <color key="fillColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
             <point key="canvasLocation" x="62" y="-15"/>
         </box>
     </objects>
     <resources>
+        <image name="icons8-close" width="12" height="12"/>
         <namedColor name="Kolo Window background">
             <color red="0.92549019607843142" green="0.92549019607843142" blue="0.92549019607843142" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
